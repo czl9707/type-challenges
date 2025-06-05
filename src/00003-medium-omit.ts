@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type MyOmit<T extends {}, U extends keyof T> = {[Key in keyof T as Key extends U ? never : Key]: T[Key]}
+
 type cases = [
   Expect<Equal<Expected1, MyOmit<Todo, 'description'>>>,
   Expect<Equal<Expected2, MyOmit<Todo, 'description' | 'completed'>>>,

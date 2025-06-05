@@ -1,5 +1,11 @@
 import type { Equal, Expect } from '../utils'
 
+type DeepReadonly<T> = T extends Function|string|number|boolean ? T : {
+  readonly [Key in keyof T]: DeepReadonly<T[Key]>
+};
+
+type T = DeepReadonly<X2>;
+
 type cases = [
   Expect<Equal<DeepReadonly<X1>, Expected1>>,
   Expect<Equal<DeepReadonly<X2>, Expected2>>,

@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type MyReturnType<Func extends Function> = Func extends (...any: never[]) => infer RT ? RT : never;
+
 type cases = [
   Expect<Equal<string, MyReturnType<() => string>>>,
   Expect<Equal<123, MyReturnType<() => 123>>>,
@@ -18,3 +20,5 @@ type ComplexObject = {
 
 const fn = (v: boolean) => v ? 1 : 2
 const fn1 = (v: boolean, w: any) => v ? 1 : 2
+
+type a = MyReturnType<typeof fn>

@@ -1,6 +1,13 @@
 import type { Alike, Expect } from '../utils'
 
-declare const a: Chainable
+type Chainable<T extends {} = {}> = {
+  option<K extends string , V>(key: K extends keyof T ? never : K, value: V): Chainable<
+    Omit<T, K> & Record<K, V>
+  >,
+  get(): T
+};
+
+declare const a: Chainable;
 
 const result1 = a
   .option('foo', 123)
