@@ -3,6 +3,17 @@ import type { Equal, Expect } from '../utils'
 const OperatingSystem = ['macOS', 'Windows', 'Linux'] as const
 const Command = ['echo', 'grep', 'sed', 'awk', 'cut', 'uniq', 'head', 'tail', 'xargs', 'shift'] as const
 
+type Indexes<T extends readonly unknown[]> = T extends readonly [
+  infer Head,
+  ...infer Tail
+]
+  ? Indexes<Tail> | Tail["length"]
+  : never;
+
+type Enum<T extends readonly string[], Num extends boolean = false> = {
+  readonly [Key in Indexes<T> as Capitalize<T[Key]>] : Num extends true ? Key : T[Key]
+}
+
 type cases = [
   Expect<Equal<Enum<[]>, {}>>,
   Expect<Equal<

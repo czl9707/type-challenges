@@ -1,5 +1,8 @@
 import type { Equal, Expect } from '../utils'
 
+type ReplaceAll<T extends string, P extends string, U extends string> = P extends "" ? T : 
+  T extends `${infer Head}${P}${infer Tail}`? `${Head}${U}${ReplaceAll<Tail, P, U>}` : T
+
 type cases = [
   Expect<Equal<ReplaceAll<'foobar', 'bar', 'foo'>, 'foofoo'>>,
   Expect<Equal<ReplaceAll<'foobar', 'bag', 'foo'>, 'foobar'>>,

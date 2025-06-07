@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type MyCapitalize<T extends string> = T extends `${infer F}${infer Rest}`? `${Uppercase<F>}${Rest}`: ``;
+
 type cases = [
   Expect<Equal<MyCapitalize<'foobar'>, 'Foobar'>>,
   Expect<Equal<MyCapitalize<'FOOBAR'>, 'FOOBAR'>>,

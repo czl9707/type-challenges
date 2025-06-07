@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type AppendArgument<T extends (...args: any) => unknown, P> = (...args: [...Parameters<T>, P]) => ReturnType<T>
+
 type Case1 = AppendArgument<(a: number, b: string) => number, boolean>
 type Result1 = (a: number, b: string, x: boolean) => number
 

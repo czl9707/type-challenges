@@ -1,5 +1,18 @@
 import type { Equal, Expect } from '../utils'
 
+type VueObj<D, C, M> = {
+    data: (this: void) => D,
+    computed: C,
+    methods: M,
+  } & ThisType<D & M & GetComputed<C>>
+
+type GetComputed<C> = C extends Record<string, (...args: unknown[]) => unknown> 
+  ? { [S in keyof C]: ReturnType<C[S]> } 
+  : never
+
+
+declare function SimpleVue<D, C, M>(t: VueObj<D, C, M>): unknown;
+
 SimpleVue({
   data() {
     // @ts-expect-error

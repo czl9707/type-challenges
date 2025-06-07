@@ -1,5 +1,8 @@
 import type { Equal, Expect } from '../utils'
 
+type Last<T extends unknown[]> = [never, ...T][T["length"]];
+
+
 type cases = [
   Expect<Equal<Last<[]>, never>>,
   Expect<Equal<Last<[2]>, 2>>,

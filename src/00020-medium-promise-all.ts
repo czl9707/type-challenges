@@ -1,5 +1,8 @@
 import type { Equal, Expect } from '../utils'
 
+declare function PromiseAll<T extends unknown[]>(arg: readonly [...T]): 
+  Promise<{[Key in keyof T]: T[Key] extends Promise<infer R> | infer R ? R : T[Key]}>;
+
 const promiseAllTest1 = PromiseAll([1, 2, 3] as const)
 const promiseAllTest2 = PromiseAll([1, 2, Promise.resolve(3)] as const)
 const promiseAllTest3 = PromiseAll([1, 2, Promise.resolve(3)])

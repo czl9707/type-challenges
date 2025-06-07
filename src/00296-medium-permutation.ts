@@ -1,4 +1,8 @@
-import type { Equal, Expect } from '../utils'
+import type { Equal, Expect, ExpectExtends } from '../utils'
+
+type Permutation<T, P=T> = [T] extends [never]
+  ? [] :
+  (T extends P ? [T, ...Permutation<Exclude<P, T>>] : [])
 
 type cases = [
   Expect<Equal<Permutation<'A'>, ['A']>>,

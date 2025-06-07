@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type ToNumber<S extends string> = S extends `${infer N extends number}`? N : never;
+
 type cases = [
   Expect<Equal<ToNumber<'0'>, 0>>,
   Expect<Equal<ToNumber<'5'>, 5>>,
