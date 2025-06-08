@@ -1,6 +1,6 @@
 import type { Equal, Expect } from '../utils'
 
-type LookUp<Option, T> = Option extends {type: T} ? Option : never
+type LookUp<Option, Key extends string> = Option extends {type: Key} ? Option : never;
 
 interface Cat {
   type: 'cat'
@@ -12,6 +12,7 @@ interface Dog {
   breeds: 'Hound' | 'Brittany' | 'Bulldog' | 'Boxer'
   color: 'brown' | 'white' | 'black'
 }
+
 
 type Animal = Cat | Dog
 

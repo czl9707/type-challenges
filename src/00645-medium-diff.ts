@@ -1,5 +1,14 @@
 import type { Equal, Expect } from '../utils'
 
+type DiffSide<T extends {}, P extends {}> = {
+  [Key in keyof T as Key extends keyof P ? never : Key]: T[Key]
+}
+type Flatten<T extends {}> = {
+  [Key in keyof T]: T[Key]
+}
+type Diff<T extends {}, P extends {}> = Flatten<DiffSide<T, P> & DiffSide<P, T>>
+
+
 type Foo = {
   name: string
   age: string

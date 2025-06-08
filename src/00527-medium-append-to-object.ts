@@ -1,5 +1,11 @@
 import type { Equal, Expect } from '../utils'
 
+type AppendToObject<T extends {}, Key extends string, Value> = T & {
+  [K in keyof T | Key]: K extends keyof T ? T[K] : Value;
+}
+
+type A = AppendToObject<test1, 'home', boolean>
+
 type test1 = {
   key: 'cat'
   value: 'green'

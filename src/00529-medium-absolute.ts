@@ -1,4 +1,6 @@
-import type { Equal, Expect } from '../utils'
+import type { Equal, Expect, ExpectExtends } from '../utils'
+
+type Absolute<T extends number| bigint | string> = `${T}` extends `-${infer AB extends number}` ? `${AB}` : `${T}`;
 
 type cases = [
   Expect<Equal<Absolute<0>, '0'>>,

@@ -1,5 +1,8 @@
 import type { Equal, Expect } from '../utils'
 
+type AnyOf<T extends unknown[]> =  T[number] extends null | undefined | 0 | '' | false | [] | {[key: string]: never} 
+  ? false : true;
+
 type cases = [
   Expect<Equal<AnyOf<[1, 'test', true, [1], { name: 'test' }, { 1: 'test' }]>, true>>,
   Expect<Equal<AnyOf<[1, '', false, [], {}]>, true>>,

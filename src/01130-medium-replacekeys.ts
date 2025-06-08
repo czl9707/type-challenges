@@ -1,4 +1,4 @@
-import type { Equal, Expect } from '../utils'
+import type { Equal, Expect, ExpectExtends } from '../utils'
 
 type NodeA = {
   type: 'A'
@@ -51,6 +51,11 @@ type NoNameNodeC = {
 type Nodes = NodeA | NodeB | NodeC
 type ReplacedNodes = ReplacedNodeA | ReplacedNodeB | ReplacedNodeC
 type NodesNoName = NoNameNodeA | NoNameNodeC | NodeB
+
+type ReplaceKeys<T extends {}, Keys extends string, Maps> = {
+  [Key in keyof T] : Key extends Keys ? Key extends keyof Maps ? Maps[Key] : never : T[Key]
+};
+
 
 type cases = [
   Expect<Equal<ReplaceKeys<Nodes, 'name' | 'flag', { name: number, flag: string }>, ReplacedNodes>>,

@@ -22,6 +22,11 @@ type Baz = {
   baz: string
 }
 
+type RemoveIndexSignature<T extends {}, P = PropertyKey> = {
+    [Key in keyof T as P extends Key? never : Key extends P ? Key : never]: T[Key]
+
+}
+
 type cases = [
   Expect<Equal<RemoveIndexSignature<Foo>, { foo(): void }>>,
   Expect<Equal<RemoveIndexSignature<Bar>, { bar(): void, 0: string }>>,

@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type IsNever<T> = [T] extends [never] ? true : false;
+
 type cases = [
   Expect<Equal<IsNever<never>, true>>,
   Expect<Equal<IsNever<never | string>, false>>,
