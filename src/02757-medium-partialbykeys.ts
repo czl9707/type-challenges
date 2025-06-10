@@ -18,6 +18,16 @@ interface UserPartialNameAndAge {
   address: string
 }
 
+type Flatten<T> = {
+  [Key in keyof T]: T[Key]
+}
+
+type PartialByKeys<T extends {}, Keys extends keyof T = keyof T> = Flatten<{
+  [Key in keyof T as Key extends Keys ? never: Key]: T[Key] 
+} & {
+  [Key in Keys]?: T[Key]
+}>
+
 type cases = [
   Expect<Equal<PartialByKeys<User, 'name'>, UserPartialName>>,
   Expect<Equal<PartialByKeys<User, 'name' | 'age'>, UserPartialNameAndAge>>,

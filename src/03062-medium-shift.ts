@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type Shift<T extends unknown[]> = T extends [infer First, ...infer Rest] ? Rest : []
+
 type cases = [
   // @ts-expect-error
   Shift<unknown>,

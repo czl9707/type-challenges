@@ -1,5 +1,16 @@
 import type { Equal, Expect } from '../utils'
 
+type StringToUnion<S> = S extends `${infer F}${infer R}` ? F | StringToUnion<R> : S
+
+type AllCombinations<
+  T extends string, 
+  U extends string = StringToUnion<T>, 
+  V extends string = U,
+> = T extends `${infer Head}${infer Rest}` ? 
+  V extends V ? `${V}${AllCombinations<Rest, V extends '' ? U : Exclude<U, V>>}` : never
+  : '';
+
+
 type cases = [
   Expect<Equal<AllCombinations<''>, ''>>,
   Expect<Equal<AllCombinations<'A'>, '' | 'A'>>,

@@ -1,5 +1,10 @@
 import type { Equal, Expect } from '../utils'
 
+type SignExtract<T extends string> = T extends '-' | '+' ? T : never; 
+type PercentExtract<T extends string> = T extends `${infer Num}%` ? [Num, '%'] : [T, '']; 
+
+type PercentageParser<T extends string> = T extends `${SignExtract<infer Sign>}${infer Rest}` ? [Sign, ...PercentExtract<Rest>] : ['', ...PercentExtract<T>]
+
 type Case0 = ['', '', '']
 type Case1 = ['+', '', '']
 type Case2 = ['+', '1', '']

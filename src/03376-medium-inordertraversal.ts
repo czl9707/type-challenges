@@ -1,5 +1,17 @@
 import type { Equal, Expect } from '../utils'
 
+type TreeNode = {
+  val: number,
+  left: TreeNode | null,
+  right: TreeNode | null,
+}
+
+type InorderTraversal<T extends TreeNode | null> = T extends TreeNode ? [
+  ...InorderTraversal<T["left"]>,
+  T["val"],
+  ...InorderTraversal<T["right"]>
+] : []
+
 const tree1 = {
   val: 1,
   left: null,

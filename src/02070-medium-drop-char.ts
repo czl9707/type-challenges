@@ -1,5 +1,8 @@
 import type { Equal, Expect } from '../utils'
 
+type DropChar<T extends string, P extends string> = P extends '' ? never : 
+  T extends `${infer Head}${infer Rest}` ? `${Head extends P ? '' : Head}${DropChar<Rest, P>}` : ''
+
 type cases = [
   // @ts-expect-error
   Expect<Equal<DropChar<'butter fly!', ''>, 'butterfly!'>>,

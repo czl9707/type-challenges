@@ -11,6 +11,10 @@ interface Todo1 {
 
 type List = [1, 2, 3]
 
+type Mutable<T extends object> = {
+  -readonly [K in keyof T]:T[K]
+}
+
 type cases = [
   Expect<Equal<Mutable<Readonly<Todo1>>, Todo1>>,
   Expect<Equal<Mutable<Readonly<List>>, List>>,

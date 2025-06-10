@@ -1,5 +1,7 @@
 import type { Equal, Expect } from '../utils'
 
+type StartsWith<T extends string, P extends string> = T extends `${P}${infer Any}` ? true : false;
+
 type cases = [
   Expect<Equal<StartsWith<'abc', 'ac'>, false>>,
   Expect<Equal<StartsWith<'abc', 'ab'>, true>>,

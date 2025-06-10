@@ -1,5 +1,9 @@
 import type { Equal, Expect } from '../utils'
 
+type Reverse<T extends unknown[]> = T extends [infer First, ...infer Rest extends unknown[]] ? [... Reverse<Rest>, First] : [];
+type FlipArguments<T extends (...args: any) => unknown> = T extends (...args: infer Args extends unknown[]) => infer RT ? 
+  (...args: Reverse<Args>) => RT : never;
+
 type cases = [
   Expect<Equal<FlipArguments<() => boolean>, () => boolean>>,
   Expect<Equal<FlipArguments<(foo: string) => number>, (foo: string) => number>>,
